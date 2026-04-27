@@ -1,0 +1,78 @@
+WhatsApp-Based Accounts Automation (MVP) Developer
+Handover Document
+1. Objective
+Build a WhatsApp bot to capture Purchase, Payment, and Expense entries; manage Vendor Ledger; and enforce
+Confirmation + Approval workflows using Text, Voice, and Image inputs.
+2. Core Features
+Data Entry
+• Purchase entry
+• Payment entry
+• Expense entry
+Vendor Types
+• Credit (running balance)
+• Bill-to-Bill (invoice-based)
+• Advance (prepaid adjustment)
+Input Modes
+• Text
+• Voice
+• Image (bill, ledger, payment proof)
+3. Complete Flow
+User Input (Text/Voice/Image) → Data Extraction → Duplicate Check → Confirmation (same media) → Save as
+Pending → Approval Flow → (Optional Edit by Approver) → Final Approval → Ledger Update → Response to user
+4. Input Processing
+Text
+Rule-based + AI parsing.
+Voice
+Speech-to-text → parse.
+Image
+OCR → parse; store image in cloud and save URL.
+5. Confirmation Layer (Mandatory)
+System must repeat extracted data in the same media type as input. Actions: OK → proceed; EDIT → modify;
+CANCEL → discard.
+6. Duplicate Detection
+• Image hash comparison
+• Transaction reference ID (UPI) check
+• Vendor + Amount + Time similarity check
+• Exact duplicate → block; possible duplicate → ask user
+7. Transaction States
+Status Description
+Temp Before confirmation
+Pending Waiting for approval
+Approved Final
+Rejected Discarded
+8. Approval Workflow
+Created By Can Approve
+Father Brother / Me
+Brother Me
+Me Auto-approved
+Actions: Approve, Reject, Edit (then approve).
+9. Edit at Approval
+Allowed only in Pending state. Editable fields: Vendor, Amount, Mode, Type. Must maintain audit log of changes.
+10. Ledger Logic
+• Credit: Running balance
+• Bill-to-Bill: Map payment to invoice
+• Advance: Payment creates advance; purchase reduces it
+11. Time Handling
+• created_at
+• transaction_time
+• approved_at
+12. Image Handling
+• Download from WhatsApp
+• Upload to cloud (Google Drive)
+• Store URL in database
+• Link to transaction
+13. Database (MVP)
+Transactions
+• id, vendor, type, amount, mode, vendor_type
+• status, created_by, approved_by
+• created_at, approved_at, transaction_time
+• image_url, txn_hash, image_hash, reference_id
+Vendors
+• name, type, balance
+Audit Logs
+• txn_id, field_changed, old_value, new_value, edited_by, timestamp
+14. Data Retrieval Commands
+• LEDGER
+• SUMMARY TODAY / MONTH
+• SEARCH
+• PENDING
