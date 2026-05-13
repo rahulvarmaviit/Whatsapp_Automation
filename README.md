@@ -1,6 +1,6 @@
 # Accounts Automation MVP (Chat-Only)
 
-This repository contains a chat-only web MVP for accounts automation.
+This repository contains a chat-only web MVP for accounts automation.........
 
 Current scope:
 
