@@ -1,7 +1,7 @@
 # Accounts Automation MVP (Chat-Only)
 
 This repository contains a chat-only web MVP for accounts automation.........
-
+sdkl
 Current scope:
 
 - Natural language chat commands handled by Gemini
